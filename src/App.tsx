@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 function App() {
   const [streamer, setStreamer] = useState([])
   useEffect(() => {
-    axios.get('https://heroku-learning-favorites.herokuapp.com/streamer').then(res => {
+    axios.get('https://heroku-learning-favorites.herokuapp.com/recipe').then(res => {
       setStreamer(res.data);
     });
   }, [])
@@ -21,7 +21,6 @@ function App() {
         {streamer.map((singleStreamer: { firstName: string; lastName: string; twitchName: string }) => {
           return (<StreamerCard firstName={singleStreamer.firstName} lastName={singleStreamer.lastName} />)
         })}
-        <StreamerCard firstName={"Hello"} lastName={"World"} />
       </Container>
     </RootLayer>
   );
