@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from '@emotion/styled';
+import axios from 'axios';
+import { css, Global } from '@emotion/react'
+import background from './img/layered-waves-haikei.svg'
+import StreamerCard from './components/streamercard'
+import { Container } from '@mui/material'
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [streamer, setStreamer] = useState([])
+  useEffect(() => {
+    axios.get('https://heroku-learning-favorites.herokuapp.com/streamer').then(res => {
+      setStreamer(res.data);
+    });
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RootLayer>
+      <Global styles={GlobalStyle} />
+      <Container sx={{ marginTop: "8rem", display: "flex" }}>
+        {streamer.map((singleStreamer: { firstName: string; lastName: string; twitchName: string }) => {
+          return (<StreamerCard firstName={singleStreamer.firstName} lastName={singleStreamer.lastName} />)
+        })}
+        <StreamerCard firstName={"Hello"} lastName={"World"} />
+      </Container>
+    </RootLayer>
   );
 }
+
+const RootLayer = styled.div``
+
+const GlobalStyle = css`
+  body {
+    background-image: url(${background});
+    background-size: cover;
+  }
+`
 
 export default App;
