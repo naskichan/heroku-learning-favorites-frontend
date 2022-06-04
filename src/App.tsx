@@ -3,23 +3,24 @@ import styled from '@emotion/styled';
 import axios from 'axios';
 import { css, Global } from '@emotion/react'
 import background from './img/layered-waves-haikei.svg'
-import StreamerCard from './components/streamercard'
+import RecipeCard from './components/recipecard'
 import { Container } from '@mui/material'
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [streamer, setStreamer] = useState([])
+  const [recipes, setRecipes] = useState([])
   useEffect(() => {
     axios.get('https://heroku-learning-favorites.herokuapp.com/recipe').then(res => {
-      setStreamer(res.data);
+      console.log(res.data)
+      setRecipes(res.data);
     });
   }, [])
   return (
     <RootLayer>
       <Global styles={GlobalStyle} />
       <Container sx={{ marginTop: "8rem", display: "flex" }}>
-        {streamer.map((singleStreamer: { firstName: string; lastName: string; twitchName: string }) => {
-          return (<StreamerCard firstName={singleStreamer.firstName} lastName={singleStreamer.lastName} />)
+        {recipes.map((recipe: { id: number, title: string, imageUrl: string, recipeIngredients: Object }) => {
+          return (<RecipeCard imageUrl={recipe.imageUrl} title={recipe.title} recipeIngredients={recipe.recipeIngredients}> </RecipeCard>)
         })}
       </Container>
     </RootLayer>
