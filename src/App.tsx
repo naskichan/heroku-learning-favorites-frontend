@@ -19,8 +19,8 @@ function App() {
     <RootLayer>
       <Global styles={GlobalStyle} />
       <Container sx={{ marginTop: "8rem", display: "flex" }}>
-        {recipes.map((recipe: { id: number, title: string, imageUrl: string, recipeIngredients: Object }) => {
-          return (<RecipeCard imageUrl={recipe.imageUrl} title={recipe.title} recipeIngredients={recipe.recipeIngredients}> </RecipeCard>)
+        {recipes.map((recipe: { id: number, title: string, imageUrl: string, originurl: string, recipeIngredients: Object }) => {
+          return (<RecipeCard imageUrl={recipe.imageUrl} originUrl={recipe.originurl} title={recipe.title} recipeIngredients={recipe.recipeIngredients}> </RecipeCard>)
         })}
       </Container>
     </RootLayer>
